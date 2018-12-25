@@ -11,10 +11,10 @@ if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
             ;;
     esac
 else
-  - rm setup.py
-  - mv setup.py.travis setup.py
-  - rm requirements.txt
-  - mv requirements.txt.travis requirements.txt
+  rm setup.py
+  mv setup.py.travis setup.py
+  rm requirements.txt
+  mv requirements.txt.travis requirements.txt
     # Install some custom requirements on Linux
 fi
 
