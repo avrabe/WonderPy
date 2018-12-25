@@ -13,23 +13,23 @@ WonderPy is current at an "Alpha" release. It's ready to be tried out by folks w
 
 Please see the ["Issues" in github](https://github.com/playi/WonderPy/issues) for an up-to-date list of known bugs and to-do items.  
 
--   Command Categories:
-    		_ eyering
-    		_ head  
-    		_ media
-    		_ monoLED
-    		_ body
-    		_ RGB
-    		\* accessory
--   Sensor Categories:
-    		_ accelerometer / gyroscope
-    		_ beacon
-    		_ buttons
-    		_ distance
-    		_ head angles
-    		_ pose
-    		_ speaker
-    		_ wheels
+* Command Categories:
+    * eyering
+    * head  
+    * media
+    * monoLED
+    * body
+    * RGB
+    * accessory
+* Sensor Categories:
+    * accelerometer / gyroscope
+    * beacon
+    * buttons
+    * distance
+    * head angles
+    * pose
+    * speaker
+    * wheels
 
 # Setup
 
