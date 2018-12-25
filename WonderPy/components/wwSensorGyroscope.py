@@ -1,7 +1,8 @@
 import math
+
 from WonderPy.core.wwConstants import WWRobotConstants
-from .wwSensorBase import WWSensorBase
 from WonderPy.util import wwMath
+from .wwSensorBase import WWSensorBase
 
 _rcv = WWRobotConstants.RobotComponentValues
 _expected_json_fields = (
@@ -44,9 +45,9 @@ class WWSensorGyroscope(WWSensorBase):
         if not self.check_fields_exist(single_component_dictionary, _expected_json_fields):
             return
 
-        x = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_ROLL ]
+        x = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_ROLL]
         y = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_PITCH]
-        z = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_YAW  ]
+        z = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_YAW]
 
         x, y = wwMath.coords_json_to_api_pos(x, y)
 
@@ -54,4 +55,4 @@ class WWSensorGyroscope(WWSensorBase):
         self._y = math.degrees(y)
         self._z = math.degrees(z)
 
-        self._valid   = True
+        self._valid = True

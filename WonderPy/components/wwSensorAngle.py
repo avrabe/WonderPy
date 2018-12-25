@@ -11,7 +11,7 @@ class WWSensorAngle(WWSensorBase):
 
     def __init__(self, robot, fn_unit_converter):
         super(WWSensorAngle, self).__init__(robot)
-        self._degrees          = None
+        self._degrees = None
         self._fn_unit_converter = fn_unit_converter
 
     @property
@@ -26,4 +26,4 @@ class WWSensorAngle(WWSensorBase):
             return
 
         self._degrees = self._fn_unit_converter(float(single_component_dictionary[_rcv.WW_SENSOR_VALUE_ANGLE_DEGREE]))
-        self._valid   = True
+        self._valid = True

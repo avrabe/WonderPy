@@ -1,24 +1,24 @@
 # utility file for parsing SVG files in a robot-friendly way.
 
-from svgpathtools import svg2paths
 import math
+
+from svgpathtools import svg2paths
 
 
 class WWSVG(object):
-
     class ListOfListsOfPoints(object):
         def __init__(self):
             self.data = []
 
     def __init__(self):
-        self.named_paths   = {}
+        self.named_paths = {}
         self.unnamed_paths = []
 
     def read_file(self, filename):
         paths, attributes = svg2paths(filename)
         cc = 0
         for n in xrange(len(paths)):
-            p = paths     [n]
+            p = paths[n]
             a = attributes[n]
             if 'id' in a:
                 self.named_paths[a['id']] = p
@@ -69,8 +69,8 @@ class WWSVG(object):
             return None
         xcen = (xmin + xmax) * 0.5
         ycen = (ymin + ymax) * 0.5
-        dx   = on_point[0] - xcen
-        dy   = on_point[1] - ycen
+        dx = on_point[0] - xcen
+        dy = on_point[1] - ycen
         self.translate((dx, dy))
 
     def fit_to_bbox(self, new_min_x, new_max_x, new_min_y, new_max_y):
@@ -83,8 +83,8 @@ class WWSVG(object):
         old_cntr_y = (old_min_y + old_max_y) * 0.5
         new_cntr_x = (new_min_x + new_max_x) * 0.5
         new_cntr_y = (new_min_y + new_max_y) * 0.5
-        trans_x    = new_cntr_x - old_cntr_x
-        trans_y    = new_cntr_y - old_cntr_y
+        trans_x = new_cntr_x - old_cntr_x
+        trans_y = new_cntr_y - old_cntr_y
 
         old_size_x = (old_max_x - old_min_x)
         old_size_y = (old_max_y - old_min_y)
@@ -93,7 +93,7 @@ class WWSVG(object):
 
         fit_ratio_x = new_size_x / old_size_x
         fit_ratio_y = new_size_y / old_size_y
-        fit_ratio   = min(fit_ratio_x, fit_ratio_y)
+        fit_ratio = min(fit_ratio_x, fit_ratio_y)
 
         self.scale(fit_ratio, (old_cntr_x, old_cntr_y))
         self.translate((trans_x, trans_y))

@@ -1,7 +1,7 @@
 from WonderPy.core.wwConstants import WWRobotConstants
 from .wwCommandBase import WWCommandBase
 
-_rc  = WWRobotConstants.RobotComponent
+_rc = WWRobotConstants.RobotComponent
 _rcv = WWRobotConstants.RobotComponentValues
 
 

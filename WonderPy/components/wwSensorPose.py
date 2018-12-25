@@ -1,10 +1,11 @@
 import time
 from datetime import datetime, timedelta
-from WonderPy.core.wwConstants import WWRobotConstants
-from .wwSensorBase import WWSensorBase
-from WonderPy.util import wwMath
 
-_rc  = WWRobotConstants.RobotComponent
+from WonderPy.core.wwConstants import WWRobotConstants
+from WonderPy.util import wwMath
+from .wwSensorBase import WWSensorBase
+
+_rc = WWRobotConstants.RobotComponent
 _rcv = WWRobotConstants.RobotComponentValues
 _expected_json_fields = (
     _rcv.WW_SENSOR_VALUE_AXIS_X,
@@ -21,7 +22,6 @@ _non_pose_commands = {
 
 _watermark_all_done = 255
 
-
 _t0 = time.time()
 
 
@@ -29,9 +29,9 @@ class WWSensorPose(WWSensorBase):
 
     def __init__(self, robot):
         super(WWSensorPose, self).__init__(robot)
-        self._x                  = 0
-        self._y                  = 0
-        self._degrees            = 0
+        self._x = 0
+        self._y = 0
+        self._degrees = 0
         self._watermark_measured = None
         self._watermark_inferred = 0
 
@@ -63,22 +63,22 @@ class WWSensorPose(WWSensorBase):
         if not self.check_fields_exist(single_component_dictionary, _expected_json_fields):
             return
 
-        x       = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_X      ]
-        y       = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_Y      ]
+        x = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_X]
+        y = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_Y]
         degrees = single_component_dictionary[_rcv.WW_SENSOR_VALUE_ANGLE_DEGREE]
 
-        x, y    = wwMath.coords_json_to_api_pos(x, y)
+        x, y = wwMath.coords_json_to_api_pos(x, y)
         degrees = wwMath.coords_api_to_json_pan(degrees)
 
-        self._x       = x
-        self._y       = y
+        self._x = x
+        self._y = y
         self._degrees = degrees
 
         if _rcv.WW_SENSOR_VALUE_POSE_WATERMARK in single_component_dictionary:
             self._watermark_measured = single_component_dictionary[_rcv.WW_SENSOR_VALUE_POSE_WATERMARK]
             self._watermark_inferred = self._watermark_measured
 
-        self._valid   = True
+        self._valid = True
 
     def handle_staged_motion_commands(self, command_dictionary):
         if any(k in command_dictionary for k in _non_pose_commands):

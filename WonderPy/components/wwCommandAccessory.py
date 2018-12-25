@@ -3,18 +3,17 @@ import time
 from WonderPy.core.wwConstants import WWRobotConstants
 from .wwCommandBase import WWCommandBase, do_not_call_within_connect_or_sensors
 
-
-_rc  = WWRobotConstants.RobotComponent
+_rc = WWRobotConstants.RobotComponent
 _rcv = WWRobotConstants.RobotComponentValues
-_rp  = WWRobotConstants.RobotProperties
+_rp = WWRobotConstants.RobotProperties
 
 
 class WWCommandAccessory(WWCommandBase):
     # These are the python API coordinate system, where positive values are head looking up / clockwise.
-    SKETCH_PEN_DN_DEGREES_TLT     = 15
-    SKETCH_PEN_DN_DEGREES_PAN     = 22
-    SKETCH_PEN_UP_VOLTAGE_TLT     = 75
-    SKETCH_PEN_UP_VOLTAGE_PAN     = 75
+    SKETCH_PEN_DN_DEGREES_TLT = 15
+    SKETCH_PEN_DN_DEGREES_PAN = 22
+    SKETCH_PEN_UP_VOLTAGE_TLT = 75
+    SKETCH_PEN_UP_VOLTAGE_PAN = 75
 
     def __init__(self, robot):
         super(WWCommandAccessory, self).__init__(robot)
@@ -39,7 +38,7 @@ class WWCommandAccessory(WWCommandBase):
         time.sleep(0.2)
 
     def stage_xylo_hit(self):
-        self._robot.stage_cmds({_rc.WW_COMMAND_MOTOR_HEAD_BANG : {}})
+        self._robot.stage_cmds({_rc.WW_COMMAND_MOTOR_HEAD_BANG: {}})
 
     @do_not_call_within_connect_or_sensors
     def do_launcher_launch(self, power):
@@ -65,7 +64,7 @@ class WWCommandAccessory(WWCommandBase):
 
         args = {}
         args[_rcv.WW_COMMAND_VALUE_SPEED] = power
-        self._robot.stage_cmds({_rc.WW_COMMAND_LAUNCHER_FLING : args})
+        self._robot.stage_cmds({_rc.WW_COMMAND_LAUNCHER_FLING: args})
 
     # noinspection PyDictCreation
     def stage_launcher_reload_left(self):
@@ -75,7 +74,7 @@ class WWCommandAccessory(WWCommandBase):
 
         args = {}
         args[_rcv.WW_COMMAND_VALUE_DIRECTION] = 0
-        self._robot.stage_cmds({_rc.WW_COMMAND_LAUNCHER_RELOAD : args})
+        self._robot.stage_cmds({_rc.WW_COMMAND_LAUNCHER_RELOAD: args})
 
     # noinspection PyDictCreation
     def stage_launcher_reload_right(self):
@@ -85,4 +84,4 @@ class WWCommandAccessory(WWCommandBase):
 
         args = {}
         args[_rcv.WW_COMMAND_VALUE_DIRECTION] = 1
-        self._robot.stage_cmds({_rc.WW_COMMAND_LAUNCHER_RELOAD : args})
+        self._robot.stage_cmds({_rc.WW_COMMAND_LAUNCHER_RELOAD: args})

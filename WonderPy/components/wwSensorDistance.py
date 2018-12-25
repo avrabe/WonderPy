@@ -31,7 +31,7 @@ class WWSensorDistance(WWSensorBase):
     def __init__(self, robot):
         super(WWSensorDistance, self).__init__(robot)
         self._distance_approximate = None
-        self._reflectance          = None
+        self._reflectance = None
 
     @property
     def distance_approximate(self):
@@ -45,11 +45,10 @@ class WWSensorDistance(WWSensorBase):
         return ('_distance_approximate', '_reflectance')
 
     def parse(self, single_component_dictionary):
-
         if not self.check_fields_exist(single_component_dictionary, _expected_json_fields):
             return
 
-        self._reflectance          = single_component_dictionary[_rcv.WW_SENSOR_VALUE_REFLECTANCE      ]
-        self._distance_approximate = single_component_dictionary[_rcv.WW_SENSOR_VALUE_DISTANCE         ]
+        self._reflectance = single_component_dictionary[_rcv.WW_SENSOR_VALUE_REFLECTANCE]
+        self._distance_approximate = single_component_dictionary[_rcv.WW_SENSOR_VALUE_DISTANCE]
 
-        self._valid   = True
+        self._valid = True

@@ -55,15 +55,15 @@ def direction_to_angle_rads(unit_length_vector):
 
 def coords_api_to_json_pos(x_cm_right, y_cm_forward):
     """converts from API coordinates to robot coordinates. returns x, y"""
-    x_cm_forward =  y_cm_forward
-    y_cm_left    = -x_cm_right
+    x_cm_forward = y_cm_forward
+    y_cm_left = -x_cm_right
     return x_cm_forward, y_cm_left
 
 
 def coords_json_to_api_pos(x_cm_forward, y_cm_left):
     """converts from robot coordinates to API coordinates. returns x, y"""
-    x_cm_right   = -y_cm_left
-    y_cm_forward =  x_cm_forward
+    x_cm_right = -y_cm_left
+    y_cm_forward = x_cm_forward
     return x_cm_right, y_cm_forward
 
 
@@ -87,6 +87,7 @@ def coords_json_to_api_tilt(ang_down):
     """converts from API coordinates to robot coordinates."""
     ang_up = -ang_down
     return ang_up
+
 
 ###########################################################
 

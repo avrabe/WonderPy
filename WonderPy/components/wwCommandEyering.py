@@ -1,10 +1,10 @@
-from .wwCommandBase import WWCommandBase
 from WonderPy.core.wwConstants import WWRobotConstants
+from .wwCommandBase import WWCommandBase
 
-_ea  = WWRobotConstants.WWEyeAnimation
-_rc  = WWRobotConstants.RobotComponent
+_ea = WWRobotConstants.WWEyeAnimation
+_rc = WWRobotConstants.RobotComponent
 _rcv = WWRobotConstants.RobotComponentValues
-_rp  = WWRobotConstants.RobotProperties
+_rp = WWRobotConstants.RobotProperties
 
 
 class WWCommandEyering(WWCommandBase):
@@ -22,16 +22,16 @@ class WWCommandEyering(WWCommandBase):
         :param brightness the overall brightness of all the LEDs. [0, 1]:
         :return: None
         """
-        anim  = _ea.WW_EYEANIM_BITMAP
+        anim = _ea.WW_EYEANIM_BITMAP
 
         args = {}
 
         if pattern in (_ea.WW_EYEANIM_FULL_BLINK, _ea.WW_EYEANIM_SWIRL, _ea.WW_EYEANIM_WINK):
             anim = pattern
         else:
-            args[_rcv.WW_COMMAND_VALUE_ORDER_INDEX     ] = pattern
+            args[_rcv.WW_COMMAND_VALUE_ORDER_INDEX] = pattern
 
         args[_rcv.WW_COMMAND_VALUE_EYE_RING_ANIMATION] = anim
-        args[_rcv.WW_COMMAND_VALUE_COLOR_BRIGHTNESS  ] = brightness
+        args[_rcv.WW_COMMAND_VALUE_COLOR_BRIGHTNESS] = brightness
 
-        return {_rc.WW_COMMAND_EYE_RING : args}
+        return {_rc.WW_COMMAND_EYE_RING: args}

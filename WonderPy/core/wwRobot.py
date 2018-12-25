@@ -1,5 +1,5 @@
-import time
 import sys
+import time
 
 if sys.version_info > (3, 0):
     import queue
@@ -31,11 +31,11 @@ class WWRobot(object):
 
         self._command_queue = queue.Queue()
 
-        self._sensor_count               = 0
+        self._sensor_count = 0
         self._queues_waiting_for_sensors = set()
 
-        self._sensors           = WWSensors (self)
-        self._commands          = WWCommands(self)
+        self._sensors = WWSensors(self)
+        self._commands = WWCommands(self)
 
         self._sensor_packet_1 = None
         self._sensor_packet_2 = None
@@ -45,16 +45,16 @@ class WWRobot(object):
 
         # todo: move this into a 'properties' or 'constants' property
         # todo: this should be None for Dot.
-        self._wheelbase_cm      =    9.6
+        self._wheelbase_cm = 9.6
 
         # todo: move into a 'properties' or 'constants' property
         # todo: these should be determined per-robot.
-        self._head_pan_min_deg  = -120.0
-        self._head_pan_max_deg  =  120.0
-        self._head_tilt_min_deg =  -10.0      # note inverted from json format
-        self._head_tilt_max_deg =   22.0      # note inverted from json format
+        self._head_pan_min_deg = -120.0
+        self._head_pan_max_deg = 120.0
+        self._head_tilt_min_deg = -10.0  # note inverted from json format
+        self._head_tilt_max_deg = 22.0  # note inverted from json format
 
-        self.pinger       = WWPinger     (self)
+        self.pinger = WWPinger(self)
 
     @property
     def name(self):
@@ -118,20 +118,20 @@ class WWRobot(object):
         """parse the manufacturer data portion of the BTLE advertisement"""
 
         self._robot_type = WWRobotConstants.RobotType.WW_ROBOT_UNKNOWN
-        self._sendJson   = None
-        self._mode       = WWRobotConstants.RobotMode.ROBOT_MODE_UNKNOWN
+        self._sendJson = None
+        self._mode = WWRobotConstants.RobotMode.ROBOT_MODE_UNKNOWN
 
         if not manuData:
             print("error: no manufacturer data. robot: %s" % (self.name))
             return
 
-        self._mode       = manuData[0] & 0x03
+        self._mode = manuData[0] & 0x03
         self._robot_type = WWRobot.robot_type_from_manufacturer_data(manuData)
 
     @staticmethod
     def robot_type_from_manufacturer_data(manu_data):
         mode = manu_data[0] & 0x03
-        if   manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
+        if manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
             return WWRobotConstants.RobotType.WW_ROBOT_DASH
         elif manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
             return WWRobotConstants.RobotType.WW_ROBOT_DASH_DFU

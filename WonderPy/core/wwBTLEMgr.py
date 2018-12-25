@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import uuid
+import argparse
 import ctypes
 import json
-import sys
-import argparse
-import time
 import os
+import sys
+import time
+import uuid
 
 try:
     import Adafruit_BluefruitLE
 except ImportError:
-    print("Unable to import module: Adafruit_BluefruitLE. You may need to install it manually. See the README.md for WonderPy.")
+    print(
+        "Unable to import module: Adafruit_BluefruitLE. You may need to install it manually. See the README.md for WonderPy.")
     raise
-
 
 if sys.version_info > (3, 0):
     import queue
@@ -27,24 +27,24 @@ from WonderPy.config import WW_ROOT_DIR
 
 
 class WWException(Exception):
-        pass
+    pass
 
 
 # Define service and characteristic UUIDs used by the WW devices.
-WW_SERVICE_UUID_D1     = uuid.UUID('AF237777-879D-6186-1F49-DECA0E85D9C1')   # dash and dot
-WW_SERVICE_UUID_D2     = uuid.UUID('AF237778-879D-6186-1F49-DECA0E85D9C1')   # cue
-WW_SERVICE_IDS         = [WW_SERVICE_UUID_D1, WW_SERVICE_UUID_D2]
+WW_SERVICE_UUID_D1 = uuid.UUID('AF237777-879D-6186-1F49-DECA0E85D9C1')  # dash and dot
+WW_SERVICE_UUID_D2 = uuid.UUID('AF237778-879D-6186-1F49-DECA0E85D9C1')  # cue
+WW_SERVICE_IDS = [WW_SERVICE_UUID_D1, WW_SERVICE_UUID_D2]
 
-CHAR_UUID_CMD          = uuid.UUID('AF230002-879D-6186-1F49-DECA0E85D9C1')   # command channel
-CHAR_UUID_SENSOR0      = uuid.UUID('AF230003-879D-6186-1F49-DECA0E85D9C1')   # sensor channel 0 (all robots)
-CHAR_UUID_SENSOR1      = uuid.UUID('AF230006-879D-6186-1F49-DECA0E85D9C1')   # sensor channel 1 (dash and cue)
+CHAR_UUID_CMD = uuid.UUID('AF230002-879D-6186-1F49-DECA0E85D9C1')  # command channel
+CHAR_UUID_SENSOR0 = uuid.UUID('AF230003-879D-6186-1F49-DECA0E85D9C1')  # sensor channel 0 (all robots)
+CHAR_UUID_SENSOR1 = uuid.UUID('AF230006-879D-6186-1F49-DECA0E85D9C1')  # sensor channel 1 (dash and cue)
 
 # this is used to renegotiate the BTLE connection interval exactly once after establishing connection.
 # this value should be as large as possible while being less than about 50ms
 # and also without accumulating ping latency.
 # typically we're able to just use the default of about 30ms,
 # but with the python/osx version we find that a smaller value is needed.
-CONNECTION_INTERVAL_MS  = 12
+CONNECTION_INTERVAL_MS = 12
 
 
 class WWBTLEManager(object):
@@ -86,16 +86,16 @@ class WWBTLEManager(object):
     class two_packet_wrappers(ctypes.Structure):
         _fields_ = [
             ('packet1_bytes_num', ctypes.c_byte),
-            ('packet1_bytes'    , ctypes.c_byte * 20),
+            ('packet1_bytes', ctypes.c_byte * 20),
             ('packet2_bytes_num', ctypes.c_byte),
-            ('packet2_bytes'    , ctypes.c_byte * 20),
+            ('packet2_bytes', ctypes.c_byte * 20),
         ]
 
     def _load_HAL(self):
 
         HAL_path = os.path.join(WW_ROOT_DIR, 'lib/WonderWorkshop/osx/libWWHAL.dylib')
         self.libHAL = ctypes.cdll.LoadLibrary(HAL_path)
-        self.libHAL.packets2Json.restype  = (ctypes.c_char_p)
+        self.libHAL.packets2Json.restype = (ctypes.c_char_p)
         # self.libHAL.json2Packets.argtypes = (c_char_p, WWBTLEManager.two_packet_wrappers)
 
     @staticmethod
@@ -140,8 +140,8 @@ class WWBTLEManager(object):
 
             ticks_min = 5
             ticks_max = 20
-            ticks     = 0
-            devices    = set()
+            ticks = 0
+            devices = set()
             devices_no = set()
             while (ticks < ticks_max):
                 time.sleep(1)
@@ -158,7 +158,7 @@ class WWBTLEManager(object):
                     # filter by name
                     if (self._args.connect_name is not None):
                         p = False
-                        for n in  self._args.connect_name:
+                        for n in self._args.connect_name:
                             if n.lower() == rob.name.lower():
                                 p = True
                         it_passes = it_passes and p
@@ -188,8 +188,8 @@ class WWBTLEManager(object):
                         devices_no.add(d)
 
                     try_right_now = False
-                    try_right_now = try_right_now or ((self._args.connect_eager  ) and (len(devices) > 0))
-                    try_right_now = try_right_now or ((ticks > ticks_min         ) and (len(devices) > 0))
+                    try_right_now = try_right_now or ((self._args.connect_eager) and (len(devices) > 0))
+                    try_right_now = try_right_now or ((ticks > ticks_min) and (len(devices) > 0))
                     try_right_now = try_right_now and not self._args.connect_patient
 
                     if try_right_now:
@@ -213,7 +213,6 @@ class WWBTLEManager(object):
         device = None
         sys.stdout.write('\n')
         sys.stdout.flush()
-
 
         if len(devices) == 0:
             print("no suitable robots found!")
@@ -275,7 +274,7 @@ class WWBTLEManager(object):
         if dService is None:
             raise WWException("could not find expected serviceID")
 
-        self.char_cmd     = dService.find_characteristic(CHAR_UUID_CMD)
+        self.char_cmd = dService.find_characteristic(CHAR_UUID_CMD)
         self.char_sensor0 = dService.find_characteristic(CHAR_UUID_SENSOR0)
         self.char_sensor1 = dService.find_characteristic(CHAR_UUID_SENSOR1)
 
@@ -303,7 +302,7 @@ class WWBTLEManager(object):
                 pw = WWBTLEManager.two_packet_wrappers()
                 WWBTLEManager.string_into_c_byte_array(self.robot._sensor_packet_1, pw.packet1_bytes)
                 pw.packet1_bytes_num = len(p1)
-                pw.packet2_bytes_num =      0
+                pw.packet2_bytes_num = 0
                 json_string = self.libHAL.packets2Json(pw)
                 self._sensor_queue.put(json.loads(json_string))
                 self.robot._sensor_packet_1 = None

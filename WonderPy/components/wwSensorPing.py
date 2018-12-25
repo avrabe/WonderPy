@@ -12,7 +12,7 @@ class WWSensorPing(WWSensorBase):
 
     def __init__(self, robot):
         super(WWSensorPing, self).__init__(robot)
-        self._id    = 0
+        self._id = 0
         self._count = 0
 
     @property
@@ -30,6 +30,6 @@ class WWSensorPing(WWSensorBase):
         if not self.check_fields_exist(single_component_dictionary, _expected_json_fields):
             return
 
-        self._id    = single_component_dictionary[_rcv.WW_SENSOR_VALUE_PING_ID]
+        self._id = single_component_dictionary[_rcv.WW_SENSOR_VALUE_PING_ID]
         self._count = single_component_dictionary[_rcv.WW_SENSOR_VALUE_PING_COUNT]
         self._valid = True

@@ -11,7 +11,7 @@ class WWSensorWheel(WWSensorBase):
 
     def __init__(self, robot):
         super(WWSensorWheel, self).__init__(robot)
-        self._distance_raw       = None
+        self._distance_raw = None
         self._distance_reference = None
 
     @property

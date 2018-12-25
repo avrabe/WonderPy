@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from WonderPy.core.wwConstants import WWRobotConstants
 from .wwCommandBase import WWCommandBase, do_not_call_within_connect_or_sensors
 
-_rc  = WWRobotConstants.RobotComponent
+_rc = WWRobotConstants.RobotComponent
 _rcv = WWRobotConstants.RobotComponentValues
 
 
@@ -47,9 +47,9 @@ class WWCommandMedia(WWCommandBase):
         # todo validate this filename against the robot type
 
         ret = {
-            _rc.WW_COMMAND_SPEAKER : {
-                _rcv.WW_COMMAND_VALUE_FILE         : filename,
-                _rcv.WW_COMMAND_VALUE_SOUND_VOLUME : volume,
+            _rc.WW_COMMAND_SPEAKER: {
+                _rcv.WW_COMMAND_VALUE_FILE: filename,
+                _rcv.WW_COMMAND_VALUE_SOUND_VOLUME: volume,
             }
         }
 

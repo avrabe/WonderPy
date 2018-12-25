@@ -1,15 +1,15 @@
+from WonderPy.components.wwSensorAccelerometer import WWSensorAccelerometer
+from WonderPy.components.wwSensorAngle import WWSensorAngle
+from WonderPy.components.wwSensorBeacon import WWSensorBeacon
+from WonderPy.components.wwSensorButton import WWSensorButton
+from WonderPy.components.wwSensorDistance import WWSensorDistance
+from WonderPy.components.wwSensorGyroscope import WWSensorGyroscope
+from WonderPy.components.wwSensorMedia import WWSensorMedia
+from WonderPy.components.wwSensorPing import WWSensorPing
+from WonderPy.components.wwSensorPose import WWSensorPose
+from WonderPy.components.wwSensorWheel import WWSensorWheel
 from WonderPy.core.wwConstants import WWRobotConstants
 from WonderPy.util import wwMath
-from WonderPy.components.wwSensorButton import WWSensorButton
-from WonderPy.components.wwSensorAccelerometer import WWSensorAccelerometer
-from WonderPy.components.wwSensorPose import WWSensorPose
-from WonderPy.components.wwSensorPing import WWSensorPing
-from WonderPy.components.wwSensorMedia import WWSensorMedia
-from WonderPy.components.wwSensorAngle import WWSensorAngle
-from WonderPy.components.wwSensorDistance import WWSensorDistance
-from WonderPy.components.wwSensorBeacon import WWSensorBeacon
-from WonderPy.components.wwSensorWheel import WWSensorWheel
-from WonderPy.components.wwSensorGyroscope import WWSensorGyroscope
 
 _rc = WWRobotConstants.RobotComponent
 
@@ -31,50 +31,50 @@ class WWSensors(object):
     #   an example is voice- or clap-detection.
 
     def setup_all_sensors(self, robot):
-        self._sensor_dict                 = None
+        self._sensor_dict = None
 
         # common
-        self._accelerometer               = WWSensorAccelerometer(robot)
-        self._animation                   = WWSensorMedia        (robot)
-        self._button_main                 = WWSensorButton       (robot)
-        self._button_1                    = WWSensorButton       (robot)
-        self._button_2                    = WWSensorButton       (robot)
-        self._button_3                    = WWSensorButton       (robot)
-        self._ping                        = WWSensorPing         (robot)
-        self._speaker                     = WWSensorMedia        (robot)
-        self._voice                       = None
+        self._accelerometer = WWSensorAccelerometer(robot)
+        self._animation = WWSensorMedia(robot)
+        self._button_main = WWSensorButton(robot)
+        self._button_1 = WWSensorButton(robot)
+        self._button_2 = WWSensorButton(robot)
+        self._button_3 = WWSensorButton(robot)
+        self._ping = WWSensorPing(robot)
+        self._speaker = WWSensorMedia(robot)
+        self._voice = None
 
         # dash & cue
-        self._beacon                      = WWSensorBeacon       (robot)
-        self._distance_front_left_facing  = WWSensorDistance     (robot)
-        self._distance_front_right_facing = WWSensorDistance     (robot)
-        self._distance_rear               = WWSensorDistance     (robot)
-        self._gyroscope                   = WWSensorGyroscope    (robot)
-        self._head_pan                    = WWSensorAngle        (robot, wwMath.coords_api_to_json_pan )
-        self._head_tilt                   = WWSensorAngle        (robot, wwMath.coords_api_to_json_tilt)
-        self._pose                        = WWSensorPose         (robot)
-        self._wheel_left                  = WWSensorWheel        (robot)
-        self._wheel_right                 = WWSensorWheel        (robot)
+        self._beacon = WWSensorBeacon(robot)
+        self._distance_front_left_facing = WWSensorDistance(robot)
+        self._distance_front_right_facing = WWSensorDistance(robot)
+        self._distance_rear = WWSensorDistance(robot)
+        self._gyroscope = WWSensorGyroscope(robot)
+        self._head_pan = WWSensorAngle(robot, wwMath.coords_api_to_json_pan)
+        self._head_tilt = WWSensorAngle(robot, wwMath.coords_api_to_json_tilt)
+        self._pose = WWSensorPose(robot)
+        self._wheel_left = WWSensorWheel(robot)
+        self._wheel_right = WWSensorWheel(robot)
 
         self._component_look_up = {
-            _rc.WW_SENSOR_ACCELEROMETER               : self._accelerometer,
-            _rc.WW_SENSOR_ANIMATION_PLAYING           : self._animation,
-            _rc.WW_SENSOR_BEACON                      : self._beacon,
-            _rc.WW_SENSOR_BODY_POSE                   : self._pose,
-            _rc.WW_SENSOR_BUTTON_1                    : self._button_1,
-            _rc.WW_SENSOR_BUTTON_2                    : self._button_2,
-            _rc.WW_SENSOR_BUTTON_3                    : self._button_3,
-            _rc.WW_SENSOR_BUTTON_MAIN                 : self._button_main,
-            _rc.WW_SENSOR_DISTANCE_BACK               : self._distance_rear,
-            _rc.WW_SENSOR_DISTANCE_FRONT_LEFT_FACING  : self._distance_front_left_facing,
-            _rc.WW_SENSOR_DISTANCE_FRONT_RIGHT_FACING : self._distance_front_right_facing,
-            _rc.WW_SENSOR_ENCODER_LEFT_WHEEL          : self._wheel_left,
-            _rc.WW_SENSOR_ENCODER_RIGHT_WHEEL         : self._wheel_right,
-            _rc.WW_SENSOR_HEAD_POSITION_PAN           : self._head_pan,
-            _rc.WW_SENSOR_HEAD_POSITION_TILT          : self._head_tilt,
-            _rc.WW_SENSOR_GYROSCOPE                   : self._gyroscope,
-            _rc.WW_SENSOR_PING_RESPONSE               : self._ping,
-            _rc.WW_SENSOR_SOUND_PLAYING               : self._speaker,
+            _rc.WW_SENSOR_ACCELEROMETER: self._accelerometer,
+            _rc.WW_SENSOR_ANIMATION_PLAYING: self._animation,
+            _rc.WW_SENSOR_BEACON: self._beacon,
+            _rc.WW_SENSOR_BODY_POSE: self._pose,
+            _rc.WW_SENSOR_BUTTON_1: self._button_1,
+            _rc.WW_SENSOR_BUTTON_2: self._button_2,
+            _rc.WW_SENSOR_BUTTON_3: self._button_3,
+            _rc.WW_SENSOR_BUTTON_MAIN: self._button_main,
+            _rc.WW_SENSOR_DISTANCE_BACK: self._distance_rear,
+            _rc.WW_SENSOR_DISTANCE_FRONT_LEFT_FACING: self._distance_front_left_facing,
+            _rc.WW_SENSOR_DISTANCE_FRONT_RIGHT_FACING: self._distance_front_right_facing,
+            _rc.WW_SENSOR_ENCODER_LEFT_WHEEL: self._wheel_left,
+            _rc.WW_SENSOR_ENCODER_RIGHT_WHEEL: self._wheel_right,
+            _rc.WW_SENSOR_HEAD_POSITION_PAN: self._head_pan,
+            _rc.WW_SENSOR_HEAD_POSITION_TILT: self._head_tilt,
+            _rc.WW_SENSOR_GYROSCOPE: self._gyroscope,
+            _rc.WW_SENSOR_PING_RESPONSE: self._ping,
+            _rc.WW_SENSOR_SOUND_PLAYING: self._speaker,
         }
 
     @property
@@ -175,7 +175,7 @@ class WWSensors(object):
         for component_id in self._component_look_up:
             component = self._component_look_up[component_id]
             if (component is not None) and (component.valid):
-                ret   = ret + delim + "%-40s: %s" % (WWRobotConstants.RobotComponent.names[component_id],
-                                                     component.description())
+                ret = ret + delim + "%-40s: %s" % (WWRobotConstants.RobotComponent.names[component_id],
+                                                   component.description())
                 delim = "\n"
         return ret

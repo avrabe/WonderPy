@@ -1,31 +1,31 @@
 # -*- coding: utf-8 -*-
 
 import math
-from datetime                  import datetime
-from WonderPy.util             import wwMath
+from datetime import datetime
+
 from WonderPy.core.wwConstants import WWRobotConstants
+from WonderPy.util import wwMath
 
 _queue_max = 5
 
 
 class WWPath(object):
-
     class Pose(object):
         def __init__(self):
-            self.x_cm     = 0
-            self.y_cm     = 0
-            self.degrees  = 0
+            self.x_cm = 0
+            self.y_cm = 0
+            self.degrees = 0
             self.duration = 0
-            self.apt      = 0
+            self.apt = 0
 
         def __str__(self):
             return "%7.2fcm, %7.2fcm, %7.2fº, %7.2fs" % (self.x_cm, self.y_cm, self.degrees, self.duration)
 
     def __init__(self, points=None):
-        self.points              = points if points is not None else []
-        self.speed_linear_cm_s   =  20.0
+        self.points = points if points is not None else []
+        self.speed_linear_cm_s = 20.0
         self.speed_angular_deg_s = 120.0
-        self._t0                 = None
+        self._t0 = None
         self.stop_continuous_pose = False
         self.is_pose_running = False
 
@@ -69,26 +69,26 @@ class WWPath(object):
 
             # calculate linear and angular distance
             dist_deg = deg_curr - deg_prev
-            while(dist_deg > 180):
+            while (dist_deg > 180):
                 dist_deg -= 360
-            while(dist_deg < -180):
+            while (dist_deg < -180):
                 dist_deg += 360
             dist_pos = wwMath.vec2_length(wwMath.vec2_sub(pos_curr, pos_prev))
 
             # there's probably a better metric than just the max of the linear & angular distances.
             # maybe something like cartesian length of the linear & angular distances, with some scale.
             # but whatev's.
-            dt_deg   = abs(dist_deg) / self.speed_angular_deg_s
-            dt_pos   = abs(dist_pos) / self.speed_linear_cm_s
-            dt       = max(dt_deg, dt_pos)
+            dt_deg = abs(dist_deg) / self.speed_angular_deg_s
+            dt_pos = abs(dist_pos) / self.speed_linear_cm_s
+            dt = max(dt_deg, dt_pos)
             apt_curr = apt_prev + dt
 
             pose = WWPath.Pose()
-            pose.x_cm     = pos_curr[0]
-            pose.y_cm     = pos_curr[1]
-            pose.degrees  = deg_curr
+            pose.x_cm = pos_curr[0]
+            pose.y_cm = pos_curr[1]
+            pose.degrees = deg_curr
             pose.duration = dt
-            pose.apt      = apt_curr
+            pose.apt = apt_curr
 
             ret.append(pose)
 
@@ -118,20 +118,20 @@ class WWPath(object):
 
         # special case: first index
         if point_index == 0:
-            vec = wwMath.vec2_sub(self.points[point_index + 1], self.points[point_index    ])
+            vec = wwMath.vec2_sub(self.points[point_index + 1], self.points[point_index])
             return wwMath.vec2_normalize(vec)
         # special case: last index
         elif point_index == len(self.points) - 1:
-            vec = wwMath.vec2_sub(self.points[point_index    ], self.points[point_index - 1])
+            vec = wwMath.vec2_sub(self.points[point_index], self.points[point_index - 1])
             return wwMath.vec2_normalize(vec)
         # general case
         else:
-            v1  = wwMath.vec2_sub(self.points[point_index    ], self.points[point_index - 1])
-            v2  = wwMath.vec2_sub(self.points[point_index + 1], self.points[point_index    ])
+            v1 = wwMath.vec2_sub(self.points[point_index], self.points[point_index - 1])
+            v2 = wwMath.vec2_sub(self.points[point_index + 1], self.points[point_index])
             vn1 = wwMath.vec2_normalize(v1)
             vn2 = wwMath.vec2_normalize(v2)
-            v   = wwMath.vec2_add(vn1, vn2)
-            vn  = wwMath.vec2_normalize(v)
+            v = wwMath.vec2_add(vn1, vn2)
+            vn = wwMath.vec2_normalize(v)
             return vn
 
     def do_piecewise(self, robot):

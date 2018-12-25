@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 # pinger
 # this class manages sending and receiving Pings with a WW Robot.
 # this is useful for testing the round-trip time of sending something to a robot and getting a response.
@@ -8,15 +9,15 @@ from datetime import datetime
 
 class WWPinger(object):
     def __init__(self, robot):
-        self.active                  = False
-        self._outstanding_id         = None
-        self._outstanding_time_sent  = None
-        self._robot                  = robot
-        self._last_id                = None
-        self._last_roundtrip_time    = 0
-        self._got_ping_this_tick     = False
-        self._average_window_size    = 20
-        self._average_record         = []
+        self.active = False
+        self._outstanding_id = None
+        self._outstanding_time_sent = None
+        self._robot = robot
+        self._last_id = None
+        self._last_roundtrip_time = 0
+        self._got_ping_this_tick = False
+        self._average_window_size = 20
+        self._average_record = []
         self._average_roundtrip_time = 0
 
     @property
@@ -47,8 +48,8 @@ class WWPinger(object):
             if self._robot.sensors.ping.id > self._outstanding_id:
                 print("warning: missed some pings")
             if self._robot.sensors.ping.id >= self._outstanding_id:
-                self._got_ping_this_tick  = True
-                self._last_id             = self._robot.sensors.ping.id
+                self._got_ping_this_tick = True
+                self._last_id = self._robot.sensors.ping.id
                 self._last_roundtrip_time = (datetime.now() - self._outstanding_time_sent).total_seconds()
                 self._send(self._last_id + 1)
                 if len(self._average_record) >= self._average_window_size:

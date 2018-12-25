@@ -26,4 +26,4 @@ class WWSensorButton(WWSensorBase):
 
         # "not not" converts truthy things into True or False.  eg 0 and 1 etc.
         self._pressed = not not single_component_dictionary[_rcv.WW_SENSOR_VALUE_BUTTON_STATE]
-        self._valid   = True
+        self._valid = True

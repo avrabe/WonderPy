@@ -1,10 +1,10 @@
 import time
 
-from WonderPy.core.wwConstants import WWRobotConstants
 from WonderPy.core import wwMain
+from WonderPy.core.wwConstants import WWRobotConstants
 from .wwComponentBase import WWComponentBase
 
-_rc  = WWRobotConstants.RobotComponent
+_rc = WWRobotConstants.RobotComponent
 _rcv = WWRobotConstants.RobotComponentValues
 
 
@@ -16,6 +16,7 @@ def do_not_call_within_connect_or_sensors(func):
         if in_on_sensors or in_on_connect:
             raise RuntimeWarning("Do not block while within on_sensors() or on_connect().")
         return func(*args, **kwargs)
+
     return wrapper
 
 

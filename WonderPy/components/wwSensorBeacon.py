@@ -2,11 +2,12 @@ from WonderPy.core.wwConstants import WWRobotConstants
 from .wwSensorBase import WWSensorBase
 
 _rcv = WWRobotConstants.RobotComponentValues
-_rt  = WWRobotConstants.RobotType
+_rt = WWRobotConstants.RobotType
 _expected_json_fields = (
     # the beacon sensor is a bit special, as we may invent empty ones.
 )
 import sys
+
 if sys.version_info > (3,):
     xrange = range
 
@@ -15,13 +16,13 @@ class WWSensorBeacon(WWSensorBase):
 
     def __init__(self, robot):
         super(WWSensorBeacon, self).__init__(robot)
-        self._robot_type_left_raw  = None
+        self._robot_type_left_raw = None
         self._robot_type_right_raw = None
-        self._robot_type_left      = None
-        self._robot_type_right     = None
-        self._filter_left          = WWSensorBeacon.BeaconFilter()
-        self._filter_right         = WWSensorBeacon.BeaconFilter()
-        self.data_window_size      = 25
+        self._robot_type_left = None
+        self._robot_type_right = None
+        self._filter_left = WWSensorBeacon.BeaconFilter()
+        self._filter_right = WWSensorBeacon.BeaconFilter()
+        self.data_window_size = 25
 
     @property
     def robot_type_left_raw(self):
@@ -65,7 +66,7 @@ class WWSensorBeacon(WWSensorBase):
 
     @data_window_size.setter
     def data_window_size(self, value):
-        self._filter_left .data_window_size = value
+        self._filter_left.data_window_size = value
         self._filter_right.data_window_size = value
 
     def _important_field_names(self):
@@ -75,31 +76,31 @@ class WWSensorBeacon(WWSensorBase):
         if not self.check_fields_exist(single_component_dictionary, _expected_json_fields):
             return
 
-        rt_l   = None
-        rt_r   = None
+        rt_l = None
+        rt_r = None
 
         if _rcv.WW_SENSOR_VALUE_BEACON_DATA_LEFT in single_component_dictionary:
-            data = single_component_dictionary[_rcv.WW_SENSOR_VALUE_BEACON_DATA_LEFT ]
+            data = single_component_dictionary[_rcv.WW_SENSOR_VALUE_BEACON_DATA_LEFT]
             rt_l = WWSensorBeacon.data_to_robot_type(data)
 
         if _rcv.WW_SENSOR_VALUE_BEACON_DATA_RIGHT in single_component_dictionary:
-            data = single_component_dictionary[_rcv.WW_SENSOR_VALUE_BEACON_DATA_RIGHT ]
+            data = single_component_dictionary[_rcv.WW_SENSOR_VALUE_BEACON_DATA_RIGHT]
             rt_r = WWSensorBeacon.data_to_robot_type(data)
 
-        self._filter_left .add_robot_type_value(rt_l)
+        self._filter_left.add_robot_type_value(rt_l)
         self._filter_right.add_robot_type_value(rt_r)
 
-        self._robot_type_left_raw  = rt_l
+        self._robot_type_left_raw = rt_l
         self._robot_type_right_raw = rt_r
-        self._robot_type_left      = self._filter_left .get_robot_type()
-        self._robot_type_right     = self._filter_right.get_robot_type()
+        self._robot_type_left = self._filter_left.get_robot_type()
+        self._robot_type_right = self._filter_right.get_robot_type()
 
-        self._valid   = True
+        self._valid = True
 
     _beacon_value_to_robot_type = {
-        0x55 : _rt.WW_ROBOT_DASH,
-        0xAA : _rt.WW_ROBOT_DOT,
-        0x33 : _rt.WW_ROBOT_CUE,
+        0x55: _rt.WW_ROBOT_DASH,
+        0xAA: _rt.WW_ROBOT_DOT,
+        0x33: _rt.WW_ROBOT_CUE,
     }
 
     @staticmethod
@@ -117,7 +118,7 @@ class WWSensorBeacon(WWSensorBase):
 
     class BeaconFilter(object):
         def __init__(self):
-            self._data_buffer       = [None] * 1
+            self._data_buffer = [None] * 1
             self._data_buffer_index = 0
 
         @property
@@ -126,7 +127,7 @@ class WWSensorBeacon(WWSensorBase):
 
         @data_window_size.setter
         def data_window_size(self, value):
-            old_db  = self._data_buffer
+            old_db = self._data_buffer
             old_dbi = self._data_buffer_index
             self._data_buffer = [None] * value
             self._data_buffer_index = 0
@@ -139,9 +140,9 @@ class WWSensorBeacon(WWSensorBase):
             self._data_buffer_index = (self._data_buffer_index + 1) % len(self._data_buffer)
 
         def get_robot_type(self):
-            value_counts  = {}
+            value_counts = {}
             highest_count = 0
-            ret           = None
+            ret = None
             for value in self._data_buffer:
                 if value is not None:
                     if value not in value_counts:
@@ -149,7 +150,7 @@ class WWSensorBeacon(WWSensorBase):
                     new_count = value_counts[value] + 1
                     value_counts[value] = new_count
                     if new_count > highest_count:
-                        ret           = value
+                        ret = value
                         highest_count = new_count
 
             return ret
