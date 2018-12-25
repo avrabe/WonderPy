@@ -55,13 +55,9 @@ class WWSensorAccelerometer(WWSensorBase):
 
         x = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_X]
         y = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_Y]
-        z = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_Z]
 
-        x, y = wwMath.coords_json_to_api_pos(x, y)
-
-        self._x = x
-        self._y = y
-        self._z = z
+        (self._x, self._y) = wwMath.coords_json_to_api_pos(x, y)
+        self._z = single_component_dictionary[_rcv.WW_SENSOR_VALUE_AXIS_Z]
 
         self._valid = True
 
