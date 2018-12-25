@@ -95,7 +95,7 @@ class WWBTLEManager(object):
 
         HAL_path = os.path.join(WW_ROOT_DIR, 'lib/WonderWorkshop/osx/libWWHAL.dylib')
         self.libHAL = ctypes.cdll.LoadLibrary(HAL_path)
-        self.libHAL.packets2Json.restype = (ctypes.c_char_p)
+        self.libHAL.packets2Json.restype = ctypes.c_char_p
         # self.libHAL.json2Packets.argtypes = (c_char_p, WWBTLEManager.two_packet_wrappers)
 
     @staticmethod
@@ -104,9 +104,9 @@ class WWBTLEManager(object):
         return char_array.from_buffer(ba)
 
     @staticmethod
-    def string_into_c_byte_array(str, cba):
+    def string_into_c_byte_array(string, cba):
         n = 0
-        for c in str:
+        for c in string:
             cba[n] = ord(c)
             n += 1
 
@@ -143,7 +143,7 @@ class WWBTLEManager(object):
             ticks = 0
             devices = set()
             devices_no = set()
-            while (ticks < ticks_max):
+            while ticks < ticks_max:
                 time.sleep(1)
                 ticks += 1
                 sys.stdout.write('\rmatching robots: %d  non-matching robots: %d %s%s' %
@@ -156,7 +156,7 @@ class WWBTLEManager(object):
                     it_passes = True
 
                     # filter by name
-                    if (self._args.connect_name is not None):
+                    if self._args.connect_name is not None:
                         p = False
                         for n in self._args.connect_name:
                             if n.lower() == rob.name.lower():
@@ -164,7 +164,7 @@ class WWBTLEManager(object):
                         it_passes = it_passes and p
 
                     # filter by type
-                    if (self._args.connect_type is not None):
+                    if self._args.connect_type is not None:
                         p = False
                         for t in self._args.connect_type:
                             t = t.lower()
@@ -188,7 +188,7 @@ class WWBTLEManager(object):
                         devices_no.add(d)
 
                     try_right_now = False
-                    try_right_now = try_right_now or ((self._args.connect_eager) and (len(devices) > 0))
+                    try_right_now = try_right_now or (self._args.connect_eager and (len(devices) > 0))
                     try_right_now = try_right_now or ((ticks > ticks_min) and (len(devices) > 0))
                     try_right_now = try_right_now and not self._args.connect_patient
 
@@ -286,11 +286,6 @@ class WWBTLEManager(object):
         # Once service discovery is complete create an instance of the service
         # and start interacting with it.
 
-        def cp_data_into_c_byte_array(dst, src):
-            n = 0
-            for c in src:
-                dst[n] = ord(c)
-
         # Function to receive RX characteristic changes.  Note that this will
         # be called on a different thread so be careful to make sure state that
         # the function changes is thread safe.  Use queue or other thread-safe
@@ -357,19 +352,19 @@ class WWBTLEManager(object):
         ba[2] = CONNECTION_INTERVAL_MS
         self.char_cmd.write_value(ba)
 
-    def sendJson(self, dict):
-        if (len(dict) == 0):
+    def sendJson(self, dictionary):
+        if len(dictionary) == 0:
             return
 
-        json_str = json.dumps(dict)
+        json_str = json.dumps(dictionary)
 
         packets = WWBTLEManager.two_packet_wrappers()
 
         self.libHAL.json2Packets(json_str, ctypes.byref(packets))
 
-        if (packets.packet1_bytes_num > 0):
+        if packets.packet1_bytes_num > 0:
             self.char_cmd.write_value(packets.packet1_bytes)
-        if (packets.packet2_bytes_num > 0):
+        if packets.packet2_bytes_num > 0:
             self.char_cmd.write_value(packets.packet2_bytes)
 
     def run(self):
