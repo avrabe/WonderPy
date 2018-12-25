@@ -16,7 +16,8 @@ class WWCommandEyering(WWCommandBase):
         s = self.compose_eyering(pattern, brightness)
         self._robot.stage_cmds(s)
 
-    def compose_eyering(self, pattern, brightness):
+    @staticmethod
+    def compose_eyering(pattern, brightness):
         """
         :param pattern can be one of WWEyeAnimation or a list of 12 booleans:
         :param brightness the overall brightness of all the LEDs. [0, 1]:

@@ -54,7 +54,8 @@ class WWCommandBody(WWCommandBase):
         self._robot.stage_cmds(cmds)
 
     # noinspection PyDictCreation
-    def compose_pose(self, x_cm, y_cm, degrees, time, mode, ease, direction, wrap_theta):
+    @staticmethod
+    def compose_pose(x_cm, y_cm, degrees, time, mode, ease, direction, wrap_theta):
         x_cm, y_cm = wwMath.coords_api_to_json_pos(x_cm, y_cm)
         degrees = wwMath.coords_api_to_json_pan(degrees)
 
@@ -90,7 +91,8 @@ class WWCommandBody(WWCommandBase):
         self._robot.stage_cmds(self.compose_wheel_speeds_naive(left_cm_s, right_cm_s))
 
     # noinspection PyDictCreation
-    def compose_wheel_speeds_naive(self, left_cm_s, right_cm_s):
+    @staticmethod
+    def compose_wheel_speeds_naive(left_cm_s, right_cm_s):
         args = {}
         args[_rcv.WW_COMMAND_VALUE_LEFT_SPEED] = left_cm_s
         args[_rcv.WW_COMMAND_VALUE_RIGHT_SPEED] = right_cm_s
@@ -102,7 +104,8 @@ class WWCommandBody(WWCommandBase):
                                                            linear_acc_cm_s_s, angular_acc_degrees_s_s))
 
     # noinspection PyDictCreation
-    def compose_linear_angular(self, linear_vel_cm_s, angular_vel_degrees_s, lin_acc_cm_s_s=None,
+    @staticmethod
+    def compose_linear_angular(linear_vel_cm_s, angular_vel_degrees_s, lin_acc_cm_s_s=None,
                                ang_acc_degrees_s_s=None):
         lin_acc_cm_s_s = WWCommandBody.default_acceleration_linear_cm_s_s \
             if lin_acc_cm_s_s is None else lin_acc_cm_s_s

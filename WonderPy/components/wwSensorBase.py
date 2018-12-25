@@ -12,7 +12,7 @@ class WWSensorBase(WWComponentBase):
         return self._valid
 
     def parse(self, single_component_dictionary):
-        print("error: implement parse() for %s !" % (self.__class__.__name__))
+        print("error: implement parse() for %s !" % self.__class__.__name__)
 
     def __str__(self):
         return self.description()
@@ -28,6 +28,7 @@ class WWSensorBase(WWComponentBase):
             delim = ', '
         return ret
 
+    @classmethod
     def _important_field_names(self):
         return ()
 
@@ -40,9 +41,10 @@ class WWSensorBase(WWComponentBase):
             if include_none or (getattr(other, fn) is not None):
                 setattr(self, fn, getattr(other, fn))
 
+    @classmethod
     def _check_field_exists(self, single_component_dictionary, key):
         if key not in single_component_dictionary:
-            err = "malformed sensor json. missing \"%s\"" % (key)
+            err = "malformed sensor json. missing \"%s\"" % key
             raise ValueError(err)
         return True
 

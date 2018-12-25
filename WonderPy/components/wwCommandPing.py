@@ -13,7 +13,8 @@ class WWCommandPing(WWCommandBase):
     def stage_ping(self, ping_id):
         self._robot.stage_cmds(self.compose_ping(ping_id))
 
-    def compose_ping(self, ping_id):
+    @staticmethod
+    def compose_ping(ping_id):
         ret = {
             _rc.WW_COMMAND_SET_PING: {
                 _rcv.WW_COMMAND_VALUE_PING_ID: ping_id

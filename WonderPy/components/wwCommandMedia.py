@@ -43,7 +43,8 @@ class WWCommandMedia(WWCommandBase):
     def stage_audio(self, filename, volume=1.0):
         self._robot.stage_cmds(self.compose_audio(filename, volume))
 
-    def compose_audio(self, filename, volume=1.0):
+    @staticmethod
+    def compose_audio(filename, volume=1.0):
         # todo validate this filename against the robot type
 
         ret = {

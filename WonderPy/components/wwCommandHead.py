@@ -68,12 +68,12 @@ class WWCommandHead(WWCommandBase):
         self.stage_pan_tilt_voltage(pan_voltage_percent, tilt_voltage_percent)
         self._block_for_simple_timeout(self._TIME_VOLTAGE, timeout)
 
-    def compose_angle(self, component_id, degrees):
-        args = {}
-        args[_rcv.WW_COMMAND_VALUE_ANGLE_DEGREE] = degrees
+    @staticmethod
+    def compose_angle(component_id, degrees):
+        args = {_rcv.WW_COMMAND_VALUE_ANGLE_DEGREE: degrees}
         return {component_id: args}
 
-    def compose_voltage(self, component_id, voltage_percent):
-        args = {}
-        args[_rcv.WW_COMMAND_VALUE_PERCENTAGE] = voltage_percent
+    @staticmethod
+    def compose_voltage(component_id, voltage_percent):
+        args = {_rcv.WW_COMMAND_VALUE_PERCENTAGE: voltage_percent}
         return {component_id: args}

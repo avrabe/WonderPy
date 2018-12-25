@@ -46,7 +46,8 @@ class WWCommandRGB(WWCommandBase):
     def compose_led_top(self, r, g, b):
         return {_rc.WW_COMMAND_LIGHT_RGB_BUTTON_MAIN: self._compose_val_rgb(r, g, b)}
 
-    def _compose_val_rgb(self, r, g, b):
+    @staticmethod
+    def _compose_val_rgb(r, g, b):
         return {
             _rcv.WW_COMMAND_VALUE_COLOR_RED: r,
             _rcv.WW_COMMAND_VALUE_COLOR_GREEN: g,

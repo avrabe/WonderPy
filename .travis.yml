@@ -2,6 +2,16 @@ language: python
 
 python:
   - "2.7"
+matrix:
+    include:
+        - os: linux
+          python: 2.8
+          env: TOXENV=py27
+        - os: osx
+          language: generic
+          env: TOXENV=py27
+install:
+    - ./.travis/install.sh
 
 before_install:
   - rm setup.py
