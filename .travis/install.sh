@@ -20,6 +20,7 @@ fi
 
 python setup.py install
 pip install -r requirements.txt
+pip install -U pytest
 
 which python
 which pip
