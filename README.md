@@ -12,7 +12,7 @@ WonderPy is current at an "Alpha" release. It's ready to be tried out by folks w
 
 Please see the ["Issues" in github](https://github.com/playi/WonderPy/issues) for an up-to-date list of known bugs and to-do items.  
 
-* Command Categories:
+  * Command Categories:
 	* eyering
 	* head
 	* media
@@ -20,7 +20,7 @@ Please see the ["Issues" in github](https://github.com/playi/WonderPy/issues) fo
 	* body
 	* RGB
 	* accessory
-* Sensor Categories:
+  * Sensor Categories:
 	* accelerometer / gyroscope
 	* beacon
 	* buttons
@@ -30,13 +30,11 @@ Please see the ["Issues" in github](https://github.com/playi/WonderPy/issues) fo
 	* speaker
 	* wheels
 
-
 # Setup
 ## Prerequisites
 1. MacOS
 2. Python 2.7
 3. Familiarity with python and the command-line
-
 
 ## Install hard dependencies
 All of these are *required*.
@@ -49,21 +47,21 @@ Installing pip tends to vary significantly from system to system, so we can't pr
 2. **VirtualEnv**  
   VirtualEnv is a system which enables you to be sure which version of Python you're running for WonderPy, and which packages are present.  
       
-  `pip install virtualenv`  
+   `pip install virtualenv`  
     
-  Depending on how you installed pip, you may need to  
-  `sudo pip install virtualenv`
+   Depending on how you installed pip, you may need to  
+   `sudo pip install virtualenv`
 
 3. **XCode Command Line Tools**
   `xcode-select --install`
 
-  You may need to install XCode, visit the [Apple Developer site](https://developer.apple.com/download/more) and search for "Command Line Tools". Then download and install the appropriate file based on your version of macOS and XCode.
+   You may need to install XCode, visit the [Apple Developer site](https://developer.apple.com/download/more) and search for "Command Line Tools". Then download and install the appropriate file based on your version of macOS and XCode.
 
-  Some users may need to uninstall/reinstall Python 2.x afterwards, depending on their setup. (Since there are many ways python is installed, we don't provide instructions for that here)
+   Some users may need to uninstall/reinstall Python 2.x afterwards, depending on their setup. (Since there are many ways python is installed, we don't provide instructions for that here)
   
 4. **AdaFruit Python BTLE Package**  
-  The AdaFruit BTLE package is not hosted on PyPi, which makes it difficult to automatically install when this package is installed via pip. Additionally, this project requires a fork of that project by WonderWorkshop, which as of this writing has not been merged back into the main project.  
-  `pip install git+git://github.com/playi/Adafruit_Python_BluefruitLE@928669a#egg=Adafruit_BluefruitLE`
+   The AdaFruit BTLE package is not hosted on PyPi, which makes it difficult to automatically install when this package is installed via pip. Additionally, this project requires a fork of that project by WonderWorkshop, which as of this writing has not been merged back into the main project.  
+   `pip install git+git://github.com/playi/Adafruit_Python_BluefruitLE@928669a#egg=Adafruit_BluefruitLE`
 
 ## Create a new python virtual environment
 1. `virtualenv --python=/usr/bin/python2.7 --no-site-packages venv`
