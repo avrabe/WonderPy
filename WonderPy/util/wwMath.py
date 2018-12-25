@@ -4,13 +4,13 @@ import math
 
 
 def lerp(a, b, t):
-    range = b - a
-    return (range * t) + a
+    range_b_a = b - a
+    return (range_b_a * t) + a
 
 
 def inverse_lerp(a, b, x):
-    range = b - a
-    return (x - a) / range
+    range_b_a = b - a
+    return (x - a) / range_b_a
 
 
 def clamp(min_v, max_v, value):

@@ -16,7 +16,8 @@ class WWCommandMonoLED(WWCommandBase):
     def compose_button_main(self, brightness):
         return {_rc.WW_COMMAND_LIGHT_MONO_BUTTON_MAIN: self._compose_val_brightness(brightness)}
 
-    def _compose_val_brightness(self, brightness):
+    @staticmethod
+    def _compose_val_brightness(brightness):
         return {
             _rcv.WW_COMMAND_VALUE_COLOR_BRIGHTNESS: brightness,
         }

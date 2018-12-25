@@ -229,19 +229,19 @@ class WWBTLEManager(object):
         else:
             if self._args.connect_ask:
                 print("Suitable robots:")
-                map = {}
+                robots_map = {}
                 for d in devices:
                     r = WWRobot(d)
-                    n = len(map) + 1
-                    map[str(n)] = d
+                    n = len(robots_map) + 1
+                    robots_map[str(n)] = d
                     icon = u'📶' if d == loudest_device else u'⏹'
                     print("%2d. %s %14s '%s'" % (n, icon, r.robot_type_name, r.name))
 
                 device = None
                 while device is None:
                     user_choice = raw_input("Enter [%d - %d]: " % (1, len(devices)))
-                    if user_choice in map:
-                        device = map[user_choice]
+                    if user_choice in robots_map:
+                        device = robots_map[user_choice]
                     elif user_choice == '':
                         device = loudest_device
                     else:
