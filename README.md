@@ -5,7 +5,8 @@ WonderPy is a Python package providing an interface to the WonderWorkshop robots
 To get the most out of WonderPy, you should already have a beginner-level comfort with python and the command-line.
 
 # Project Status
-[![Build status](https://travis-ci.org/playi/WonderPy.svg?master)](https://travis-ci.org/playi)
+[![Build Status](https://travis-ci.org/avrabe/WonderPy.svg?branch=master)](https://travis-ci.org/avrabe/WonderPy)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f7af2849f53e47e6aab27d58f2db778c)](https://www.codacy.com/app/avrabe/WonderPy?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avrabe/WonderPy&amp;utm_campaign=Badge_Grade)
 
 WonderPy is current at an "Alpha" release. It's ready to be tried out by folks who are willing to live with a few more rough-edges than one would want, and ideally who can provide constructive criticism.  
 
