@@ -125,24 +125,43 @@ class WWRobot(object):
             print("error: no manufacturer data. robot: %s" % (self.name))
             return
 
-        self._mode = manuData[0] & 0x03
+        #self._mode = manuData[0] & 0x03
         self._robot_type = WWRobot.robot_type_from_manufacturer_data(manuData)
 
     @staticmethod
     def robot_type_from_manufacturer_data(manu_data):
-        mode = manu_data[0] & 0x03
-        if manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
+        '''
+        Not completely sure how to really interpret the manufacturer data for my dot and dash.
+        [1, 0, 2, 3, 2, 80,  18, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dot
+        [1, 0, 2, 3, 2, 215, 18, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dot
+        [1, 0, 2, 3, 2, 119, 18, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dot
+        [1, 0, 2, 3, 2, 215, 1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
+        [1, 0, 2, 3, 2, 214, 1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
+        [1, 0, 2, 3, 2, 118,  1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
+        [1, 0, 2, 3, 2,  80,  1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
+        [1, 0, 2, 3, 2, 119,  1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
+        Let's simplify and just check for the known facts.
+
+        TODO: rework to be able to use the regular check
+        '''
+        print(manu_data)
+        if manu_data[5] in [214, 215, 119, 118, 80] and manu_data[6] == 1:
             return WWRobotConstants.RobotType.WW_ROBOT_DASH
-        elif manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
-            return WWRobotConstants.RobotType.WW_ROBOT_DASH_DFU
-        elif manu_data[1] == 2 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
+        elif manu_data[5] in [119, 80, 215] and manu_data[6] == 18:
             return WWRobotConstants.RobotType.WW_ROBOT_DOT
-        elif manu_data[1] == 2 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
-            return WWRobotConstants.RobotType.WW_ROBOT_DOT_DFU
-        elif manu_data[1] == 3 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
-            return WWRobotConstants.RobotType.WW_ROBOT_CUE
-        elif manu_data[1] == 3 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
-            return WWRobotConstants.RobotType.WW_ROBOT_CUE_DFU
+        # mode = manu_data[0] & 0x03
+        # if manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
+        #     return WWRobotConstants.RobotType.WW_ROBOT_DASH
+        # elif manu_data[1] == 1 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
+        #     return WWRobotConstants.RobotType.WW_ROBOT_DASH_DFU
+        # elif manu_data[1] == 2 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
+        #     return WWRobotConstants.RobotType.WW_ROBOT_DOT
+        # elif manu_data[1] == 2 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
+        #     return WWRobotConstants.RobotType.WW_ROBOT_DOT_DFU
+        # elif manu_data[1] == 3 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_APP:
+        #     return WWRobotConstants.RobotType.WW_ROBOT_CUE
+        # elif manu_data[1] == 3 and mode == WWRobotConstants.RobotMode.ROBOT_MODE_BL:
+        #     return WWRobotConstants.RobotType.WW_ROBOT_CUE_DFU
 
         return WWRobotConstants.RobotType.WW_ROBOT_UNKNOWN
 

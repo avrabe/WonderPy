@@ -1,4 +1,4 @@
-import setuptools
+bimport setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -31,4 +31,5 @@ setuptools.setup(
     test_suite='test',
     install_requires=['mock', 'svgpathtools', 'PyObjC'],
     # this also requires pip install git+git://github.com/playi/Adafruit_Python_BluefruitLE@928669a#egg=Adafruit_BluefruitLE
+    # and                pip install git+git://github.com/avrabe/morseapi@master#egg=morseapi
 )

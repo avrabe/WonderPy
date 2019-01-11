@@ -24,6 +24,7 @@ from .wwRobot import WWRobot
 from .wwConstants import WWRobotConstants
 from WonderPy.core import wwMain
 from WonderPy.config import WW_ROOT_DIR
+from .hal import loadHAL
 
 
 class WWException(Exception):
@@ -92,11 +93,7 @@ class WWBTLEManager(object):
         ]
 
     def _load_HAL(self):
-
-        HAL_path = os.path.join(WW_ROOT_DIR, 'lib/WonderWorkshop/osx/libWWHAL.dylib')
-        self.libHAL = ctypes.cdll.LoadLibrary(HAL_path)
-        self.libHAL.packets2Json.restype = ctypes.c_char_p
-        # self.libHAL.json2Packets.argtypes = (c_char_p, WWBTLEManager.two_packet_wrappers)
+        self.libHAL = loadHAL()
 
     @staticmethod
     def byteArrayToCharArray(ba):
@@ -221,7 +218,7 @@ class WWBTLEManager(object):
         # find device with loudest signal
         loudest_device = None
         for d in devices:
-            if (loudest_device is None) or (d.rssi_last > loudest_device.rssi_last):
+            if (loudest_device is None) or (d.rssi > loudest_device.rssi):
                 loudest_device = d
 
         if len(devices) == 1:
@@ -361,6 +358,7 @@ class WWBTLEManager(object):
         packets = WWBTLEManager.two_packet_wrappers()
 
         self.libHAL.json2Packets(json_str, ctypes.byref(packets))
+        packets = self.libHAL.json2Packets1(json_str)
 
         if packets.packet1_bytes_num > 0:
             self.char_cmd.write_value(packets.packet1_bytes)
