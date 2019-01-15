@@ -3,7 +3,6 @@
 import argparse
 import ctypes
 import json
-import os
 import sys
 import time
 import uuid
@@ -23,7 +22,6 @@ else:
 from .wwRobot import WWRobot
 from .wwConstants import WWRobotConstants
 from WonderPy.core import wwMain
-from WonderPy.config import WW_ROOT_DIR
 from .hal import loadHAL
 
 

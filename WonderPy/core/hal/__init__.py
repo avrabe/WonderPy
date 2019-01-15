@@ -29,7 +29,7 @@ def _get_platform():
     return str(uname).lower()
 
 
-def _load_HAL_Darwin(self):
+def _load_HAL_Darwin():
     HAL_path = os.path.join(WW_ROOT_DIR, 'lib/WonderWorkshop/osx/libWWHAL.dylib')
     libHAL = ctypes.cdll.LoadLibrary(HAL_path)
     libHAL.packets2Json.restype = ctypes.c_char_p
@@ -38,6 +38,7 @@ def _load_HAL_Darwin(self):
 
 
 class HAL():
+    @staticmethod
     def packets2Json(self, pw):
         ## print(pw.packet1_bytes_num, pw.packet2_bytes_num)
 
@@ -47,13 +48,8 @@ class HAL():
         # ('packet2_bytes', ctypes.c_byte * 20),
         return "{}"
 
+    @staticmethod
     def json2Packets(self, json_str, packets):
-        '''
-        Ignore for now 
-        :param json_str:
-        :param packets:
-        :return:
-        '''
         pass
 
     def json2Packets1(self, json_str):
