@@ -1,21 +1,13 @@
+import ctypes
+import json
+import os
 import platform
+
+from morseapi import MorseRobot
 
 from WonderPy.components.wwMedia import WWMedia
 from WonderPy.config import WW_ROOT_DIR
-import ctypes
-from morseapi import MorseRobot
-from morseapi import NOISES
 
-import os
-import json
-
-def byteArrayToCharArray(ba):
-    char_array = ctypes.c_char * 20
-    counter = 0
-    for value in ba:
-        char_array[counter] = ba
-        counter +=1
-    return char_array
 
 class two_packet_wrappers():
     def __init__(self):
@@ -23,6 +15,7 @@ class two_packet_wrappers():
         self.packet1_bytes = None
         self.packet2_bytes_num = 0
         self.packet2_bytes = None
+
 
 def loadHAL():
     if _get_platform() == "darwin":
@@ -55,7 +48,13 @@ class HAL():
         return "{}"
 
     def json2Packets(self, json_str, packets):
-        print(json_str)
+        '''
+        Ignore for now 
+        :param json_str:
+        :param packets:
+        :return:
+        '''
+        pass
 
     def json2Packets1(self, json_str):
         print(json_str)
@@ -69,13 +68,20 @@ class HAL():
         }
         packets = two_packet_wrappers()
         print("two")
-        if  '300' in commands :
+        if '300' in commands:
             robot = MorseRobot()
-            packets.packet2_bytes_num=0
-            packets.packet1_bytes_num=20
-            myfile = converse[ commands['300']['file'] ]
+            packets.packet2_bytes_num = 0
+            packets.packet1_bytes_num = 20
+            myfile = converse[commands['300']['file']]
             byte_array = robot.say(myfile)
             packets.packet1_bytes = byte_array
             print("say", myfile, byte_array)
+        if '205' in commands:
+            robot = MorseRobot()
+            packets.packet2_bytes_num = 0
+            packets.packet1_bytes_num = 20
+            degree = commands['205']['degree']
+            byte_array = robot.turn(degree)
+            packets.packet1_bytes = byte_array
+            print("turn", degree, byte_array)
         return packets
-

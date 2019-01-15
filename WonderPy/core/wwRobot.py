@@ -135,6 +135,8 @@ class WWRobot(object):
         [1, 0, 2, 3, 2, 80,  18, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dot
         [1, 0, 2, 3, 2, 215, 18, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dot
         [1, 0, 2, 3, 2, 119, 18, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dot
+        [1, 0, 2, 3, 2, 122, 1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
+        [1, 0, 2, 3, 2, 121, 1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
         [1, 0, 2, 3, 2, 215, 1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
         [1, 0, 2, 3, 2, 214, 1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
         [1, 0, 2, 3, 2, 118,  1, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0] Dash
@@ -145,7 +147,7 @@ class WWRobot(object):
         TODO: rework to be able to use the regular check
         '''
         print(manu_data)
-        if manu_data[5] in [214, 215, 119, 118, 80] and manu_data[6] == 1:
+        if manu_data[5] in [121, 122, 214, 215, 119, 118, 80] and manu_data[6] == 1:
             return WWRobotConstants.RobotType.WW_ROBOT_DASH
         elif manu_data[5] in [119, 80, 215] and manu_data[6] == 18:
             return WWRobotConstants.RobotType.WW_ROBOT_DOT
