@@ -1,8 +1,0 @@
-mock==2.0.0
-svgpathtools==1.3.3
-PyObjC
-
-# our own fork of this library, for pulling out manufacturer data from the BTLE advertisement.
-git+git://github.com/avrabe/Adafruit_Python_BluefruitLE@avrabe_master#egg=Adafruit_BluefruitLE
-git+git://github.com/avrabe/morseapi@master#egg=morseapi
-

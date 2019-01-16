@@ -27,9 +27,15 @@ setuptools.setup(
         "Operating System :: MacOS",
         "Programming Language :: Python :: 2.7",
     ),
-    keywords=['robots', 'dash', 'dot', 'cue', 'wonder workshop', 'robotics', 'sketchkit',],
+    keywords=['robots', 'dash', 'dot', 'cue', 'wonder workshop', 'robotics', 'sketchkit', ],
     test_suite='test',
-    install_requires=['mock', 'svgpathtools', 'PyObjC'],
-    # this also requires pip install git+git://github.com/playi/Adafruit_Python_BluefruitLE@928669a#egg=Adafruit_BluefruitLE
-    # and                pip install git+git://github.com/avrabe/morseapi@master#egg=morseapi
+    install_requires=[
+        'mock==2.0.0',
+        'svgpathtools==1.3.3',
+        'PyObjC;platform_system=="Darwin"'
+    ],
+    dependency_links=[
+        'http://github.com/avrabe/Adafruit_Python_BluefruitLE/tarball/avrabe_master#egg=Adafruit_BluefruitLE',
+        'http://github.com/avrabe/morseapi/tarball/master#egg=morseapi'
+        ]
 )
