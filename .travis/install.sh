@@ -15,7 +15,7 @@ else
    # Install some custom requirements on Linux
 fi
 
-python setup.py install
+python setup.py install --process-dependency-links
 pip install -U pytest
 
 which python
