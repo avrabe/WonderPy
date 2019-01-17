@@ -31,9 +31,9 @@ setup(
     test_suite='test',
     zip_safe=True,
     install_requires=[
+        "mock",
         'Adafruit_BluefruitLE==1.9.9',
         'morseapi==1.0.1',
-        'mock==2.0.0',
         'svgpathtools==1.3.3',
         'PyObjC;platform_system=="Darwin"'
     ],

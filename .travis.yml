@@ -2,8 +2,6 @@ language: python
 cache:
   - pip
 matrix:
-    allow_failures:
-        - os: linux
     include:
         - os: linux
           python: 2.7
@@ -15,4 +13,6 @@ install:
   - ./.travis/install.sh
 
 script:
-  - py.test -v test
+  - py.test --cov=WonderPy -v test
+  - coverage xml
+  - python-codacy-coverage -r coverage.xml

@@ -16,7 +16,7 @@ else
 fi
 
 python setup.py install
-pip install -U pytest
+pip install -U  coverage pytest-cov codacy-coverage
 
 which python
 which pip
