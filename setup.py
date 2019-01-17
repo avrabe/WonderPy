@@ -1,9 +1,9 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="WonderPy",
     version="0.1.0",
     author="Orion Elenzil",
@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/playi/WonderPy",
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     package_data={'WonderPy': ['lib/WonderWorkshop/osx/*.dylib']},
     classifiers=(
         "Development Status :: 3 - Alpha",
@@ -29,13 +29,16 @@ setuptools.setup(
     ),
     keywords=['robots', 'dash', 'dot', 'cue', 'wonder workshop', 'robotics', 'sketchkit', ],
     test_suite='test',
+    zip_safe=True,
     install_requires=[
+        'Adafruit_BluefruitLE==1.9.9',
+        'morseapi==1.0.1',
         'mock==2.0.0',
         'svgpathtools==1.3.3',
         'PyObjC;platform_system=="Darwin"'
     ],
     dependency_links=[
-        'http://github.com/avrabe/Adafruit_Python_BluefruitLE/tarball/avrabe_master#egg=Adafruit_BluefruitLE',
-        'http://github.com/avrabe/morseapi/tarball/master#egg=morseapi'
+        'http://github.com/avrabe/Adafruit_Python_BluefruitLE/tarball/avrabe_master#egg=Adafruit_BluefruitLE-1.9.9',
+        'http://github.com/avrabe/morseapi/tarball/master#egg=morseapi-1.0.1'
         ]
 )
